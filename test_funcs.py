@@ -50,5 +50,22 @@ class TestFuncs(unittest.TestCase):
 			funcs.mirror("", 0)
 			funcs.mirror("bonjour", -8)
 
+	def test_derivee(self):
+		self.assertEqual(funcs.derivee([1,2,3,4,5], 2), [0.5,0.5,0.5,0.5,0.5])
+		self.assertEqual(funcs.derivee([1,2,3,4,5], 1), [1,1,1,1,1])
+		self.assertEqual(funcs.derivee([1.2, 1.5,1.68,1.98,2.1,2.25], 0.01), [30,18,30,12,15])
+
+		with self.assertRaises(TypeError):
+			funcs.derivee(["1", "2", "3"], 2)
+			funcs.derivee({1, 2, 3}, 2)
+
+		with self.assertRaises(ValueError):
+			funcs.derivee([-1, -2.5, -0.03,17], 0.25)
+			funcs.derivee([], 0.2)
+
+		with self.assertRaises(ValueError):
+			funcs.derivee([1,2.5,0.03,17], 0)
+
+
 if __name__ == '__main__':
 	unittest.main()

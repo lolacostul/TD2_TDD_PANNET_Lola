@@ -12,3 +12,7 @@ def mirror(word, idx):
 			raise IndexError
 	else:
 		raise TypeError
+
+
+def derivee(float_list, interval):
+	return 0
