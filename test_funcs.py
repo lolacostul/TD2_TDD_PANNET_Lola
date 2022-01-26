@@ -39,6 +39,7 @@ class TestFuncs(unittest.TestCase):
     def test_derivee(self):
         self.assertNotEqual(funcs.derivee([1, 2, 3, 4, 5], 2), [0.5, 0.5, 0.5, 0.5, 0.5])
         self.assertEqual(funcs.derivee([1, 2, 3, 4, 5], 2), [0.5, 0.5, 0.5, 0.5])
+        self.assertEqual(funcs.derivee([5, 2, 4, 1, 3], 2), [0.5, 0.5, 0.5, 0.5])
         self.assertNotEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1, 1])
         self.assertEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1])
         self.assertEqual(

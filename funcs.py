@@ -15,6 +15,7 @@ def mirror(word, idx):
 
 
 def derivee(float_list, interval):
+    float_list.sort()
     negative = bool([item for item in float_list if item < 0])
     if negative is True:
         raise ValueError
