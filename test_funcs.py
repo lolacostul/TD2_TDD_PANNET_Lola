@@ -37,11 +37,21 @@ class TestFuncs(unittest.TestCase):
             funcs.mirror("bonjour", -8)
 
     def test_derivee(self):
-        self.assertNotEqual(funcs.derivee([1, 2, 3, 4, 5], 2), [0.5, 0.5, 0.5, 0.5, 0.5])
+        self.assertNotEqual(
+            funcs.derivee([1, 2, 3, 4, 5], 2), [0.5, 0.5, 0.5, 0.5, 0.5]
+        )
         self.assertEqual(funcs.derivee([1, 2, 3, 4, 5], 2), [0.5, 0.5, 0.5, 0.5])
         self.assertEqual(funcs.derivee([5, 2, 4, 1, 3], 2), [0.5, 0.5, 0.5, 0.5])
         self.assertNotEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1, 1])
         self.assertEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1])
+        self.assertEqual(
+            funcs.derivee([5.245, 8.48, 15.548, 16.48, 21.545], 0.25),
+            [12.94, 28.272, 3.728, 20.26],
+        )
+        self.assertEqual(
+            funcs.derivee([12.94, 28.272, 3.728, 20.26], 0.25), [36.848, 29.28, 32.048]
+        )
+        self.assertEqual(funcs.derivee([36.848, 29.28, 32.048], 0.25), [11.072, 19.2])
         self.assertEqual(
             funcs.derivee([1.2, 1.5, 1.68, 1.98, 2.1, 2.25], 0.01), [30, 18, 30, 12, 15]
         )
@@ -57,6 +67,35 @@ class TestFuncs(unittest.TestCase):
 
         with self.assertRaises(ZeroDivisionError):
             funcs.derivee([1, 2.5, 0.03, 17], 0)
+
+    def test_derivee_seconde(self):
+        self.assertNotEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 2), [0, 0, 0, 0, 0])
+        self.assertEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 2), [0, 0, 0, 0])
+        self.assertEqual(funcs.derivee_seconde([5, 2, 4, 1, 3], 2), [0, 0, 0, 0])
+        self.assertNotEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 1), [0, 0, 0, 0, 0])
+        self.assertEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 1), [0, 0, 0, 0])
+        self.assertEqual(
+            funcs.derivee_seconde([5.245, 8.48, 15.548, 16.48, 21.545], 0.25),
+            [36.848, 29.28, 32.048],
+        )
+        self.assertEqual(
+            funcs.derivee_seconde([12.94, 28.272, 3.728, 20.26], 0.25), [11.072, 19.2]
+        )
+        self.assertEqual(
+            funcs.derivee_seconde([1.2, 1.5, 1.68, 1.98, 2.1, 2.25], 0.01),
+            [-1200, 1200, -1800, 300],
+        )
+
+        with self.assertRaises(TypeError):
+            funcs.derivee_seconde(["1", "2", "3"], 2)
+            funcs.derivee_seconde({1, 2, 3}, 2)
+
+        with self.assertRaises(ValueError):
+            funcs.derivee_seconde([], 0.2)
+            funcs.derivee_seconde([1, 2.5, 0.03, 17], -13)
+
+        with self.assertRaises(ZeroDivisionError):
+            funcs.derivee_seconde([1, 2.5, 0.03, 17], 0)
 
 
 if __name__ == "__main__":

@@ -26,6 +26,10 @@ def derivee(float_list, interval):
         raise ValueError
 
     result = []
-    for idx in range(0, len(float_list)-1):
+    for idx in range(0, len(float_list) - 1):
         result.append(round(((float_list[idx + 1] - float_list[idx]) / interval), 4))
     return result
+
+
+def derivee_seconde(float_list, interval):
+    return 0
