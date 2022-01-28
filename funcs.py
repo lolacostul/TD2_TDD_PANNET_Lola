@@ -15,17 +15,19 @@ def mirror(word, idx):
 
 
 def derivee(float_list, interval):
-    float_list.sort()
-    negative = bool([item for item in float_list if item < 0])
-    if negative is True:
-        raise ValueError
-
     if interval == 0:
         raise ZeroDivisionError
     elif interval < 0:
         raise ValueError
 
+    if isinstance(float_list, list) is False:
+        raise TypeError
+
+    for value in float_list:
+        if (isinstance(value, float) is False) and (isinstance(value, int) is False):
+            raise TypeError
+
     result = []
-    for idx in range(0, len(float_list)-1):
+    for idx in range(0, len(float_list) - 1):
         result.append(round(((float_list[idx + 1] - float_list[idx]) / interval), 4))
     return result
