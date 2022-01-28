@@ -1,4 +1,8 @@
 def mirror(word, idx):
+    """
+    Return mirrored word until idx
+    Example : "elephant", 4 => "elephhpele"
+    """
     if isinstance(word, str) and isinstance(idx, int):
         if -len(word) <= idx < len(word):
             if 0 <= idx < len(word):
@@ -15,6 +19,9 @@ def mirror(word, idx):
 
 
 def derivee(float_list, interval):
+    """
+    Derivate discrete signal of float (array) with time interval
+    """
     if interval == 0:
         raise ZeroDivisionError
     elif interval < 0:
@@ -30,4 +37,13 @@ def derivee(float_list, interval):
     result = []
     for idx in range(0, len(float_list) - 1):
         result.append(round(((float_list[idx + 1] - float_list[idx]) / interval), 4))
+    return result
+
+
+def derivee_seconde(float_list, interval):
+    """
+    Derivate 2 times a discrete signal of float (array) with time interval
+    """
+    tmp = derivee(float_list, interval)
+    result = derivee(tmp, interval)
     return result

@@ -44,7 +44,19 @@ class TestFuncs(unittest.TestCase):
         self.assertEqual(funcs.derivee([5, 2, 4, 1, 3], 2), [-1.5, 1.0, -1.5, 1.0])
         self.assertNotEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1, 1])
         self.assertEqual(funcs.derivee([1, 2, 3, 4, 5], 1), [1, 1, 1, 1])
-        self.assertEqual(funcs.derivee([-1, -2.5, -0.03, 17], 0.25), [-6.0, 9.88, 68.12])
+        self.assertEqual(
+            funcs.derivee([-1, -2.5, -0.03, 17], 0.25), [-6.0, 9.88, 68.12]
+        )
+        self.assertEqual(
+            funcs.derivee([12.94, 28.272, 3.728, 20.26], 0.25),
+            [61.328, -98.176, 66.128],
+        )
+        self.assertEqual(
+            funcs.derivee([61.328, -98.176, 66.128], 0.25), [-638.016, 657.216]
+        )
+        self.assertEqual(
+            funcs.derivee([36.848, 29.28, 32.048], 0.25), [-30.272, 11.072]
+        )
         self.assertEqual(
             funcs.derivee([1.2, 1.5, 1.68, 1.98, 2.1, 2.25], 0.01), [30, 18, 30, 12, 15]
         )
@@ -55,22 +67,53 @@ class TestFuncs(unittest.TestCase):
             funcs.derivee([5.245, 8.48, 15.548, 16.48, 21.545], 0.25),
             [12.94, 28.272, 3.728, 20.26],
         )
-        self.assertEqual(
-            funcs.derivee([12.94, 28.272, 3.728, 20.26], 0.25), [61.328, -98.176, 66.128]
-        )
-        self.assertEqual(funcs.derivee([36.848, 29.28, 32.048], 0.25),  [-30.272, 11.072])        
 
         with self.assertRaises(TypeError):
-            funcs.derivee(["1", "2", "3"], 2)
-            funcs.derivee({1, 2, 3}, 2)
-            funcs.derivee(25, 2)
+            funcs.derivee(["1", "2", "3"], 2)  # array of string as input, not float
+            funcs.derivee({1, 2, 3}, 2)  # dictionnary as input, not array
+            funcs.derivee(25, 2)  # not an array as input
 
         with self.assertRaises(ValueError):
-            funcs.derivee([], 0.2)
-            funcs.derivee([1, 2.5, 0.03, 17], -13)
+            funcs.derivee([], 0.2)  # empty array
+            funcs.derivee([1, 2.5, 0.03, 17], -13)  # negative time interval
 
         with self.assertRaises(ZeroDivisionError):
             funcs.derivee([1, 2.5, 0.03, 17], 0)
+
+    def test_derivee_seconde(self):
+        self.assertNotEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 2), [0, 0, 0, 0, 0])
+        self.assertEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 2), [0.0, 0.0, 0.0])
+        self.assertEqual(funcs.derivee_seconde([5, 2, 4, 1, 3], 2), [1.25, -1.25, 1.25])
+        self.assertNotEqual(
+            funcs.derivee_seconde([1, 2, 3, 4, 5], 1), [0.0, 0.0, 0.0, 0.0, 0.0]
+        )
+        self.assertEqual(funcs.derivee_seconde([1, 2, 3, 4, 5], 1), [0.0, 0.0, 0.0])
+        self.assertEqual(
+            funcs.derivee_seconde([5.245, 8.48, 15.548, 16.48, 21.545], 0.25),
+            [61.328, -98.176, 66.128],
+        )
+        self.assertEqual(
+            funcs.derivee_seconde([12.94, 28.272, 3.728, 20.26], 0.25),
+            [-638.016, 657.216],
+        )
+        self.assertEqual(
+            funcs.derivee_seconde([1.2, 1.5, 1.68, 1.98, 2.1, 2.25], 0.01),
+            [-1200, 1200, -1800, 300],
+        )
+
+        with self.assertRaises(TypeError):
+            funcs.derivee_seconde(
+                ["1", "2", "3"], 2
+            )  # array of string as input, not float
+            funcs.derivee_seconde({1, 2, 3}, 2)  # dictionnary as input, not array
+            funcs.derivee(25, 2)  # not an array as input
+
+        with self.assertRaises(ValueError):
+            funcs.derivee_seconde([], 0.2)  # empty array
+            funcs.derivee_seconde([1, 2.5, 0.03, 17], -13)  # negative time interval
+
+        with self.assertRaises(ZeroDivisionError):
+            funcs.derivee_seconde([1, 2.5, 0.03, 17], 0)
 
 
 if __name__ == "__main__":
