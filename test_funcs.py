@@ -118,66 +118,99 @@ class TestFuncs(unittest.TestCase):
         with self.assertRaises(ZeroDivisionError):
             funcs.derivee_seconde([1, 2.5, 0.03, 17], 0)
 
-
     def test_approximation_derivee(self):
-        x = sym.Symbol('x')
+        x = sym.Symbol("x")
         # Derive cos
-        self.assertEqual(funcs.approximation_derivee(sym.sin(x), sym.pi/2, 0.01), 0.00)
-        self.assertEqual(funcs.approximation_derivee(sym.sin(x), -sym.pi/2, 0.01), 0.00)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.sin(x), sym.pi / 2, 0.01), 0.00
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(sym.sin(x), -sym.pi / 2, 0.01), 0.00
+        )
         self.assertEqual(funcs.approximation_derivee(sym.sin(x), 0, 0.1), 1.0)
         self.assertEqual(funcs.approximation_derivee(sym.sin(x), sym.pi, 0.1), -1.0)
         self.assertEqual(funcs.approximation_derivee(sym.sin(x), -sym.pi, 0.1), -1.0)
-        self.assertEqual(funcs.approximation_derivee(sym.sin(x), sym.pi/4, 0.00001), 0.70711)
-        self.assertEqual(funcs.approximation_derivee(sym.sin(x), -sym.pi/4, 0.0001), 0.7071)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.sin(x), sym.pi / 4, 0.00001), 0.70711
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(sym.sin(x), -sym.pi / 4, 0.0001), 0.7071
+        )
         # Derive -sin
-        self.assertEqual(funcs.approximation_derivee(sym.cos(x), sym.pi/2, 0.01), -1.00)
-        self.assertEqual(funcs.approximation_derivee(sym.cos(x), sym.pi/3, 0.00001), -0.86603)
-        self.assertEqual(funcs.approximation_derivee(sym.cos(x), -sym.pi/3, 0.00001), 0.86603)
-        self.assertEqual(funcs.approximation_derivee(sym.cos(x), sym.pi/3, 0.000001), -0.866025)
-        self.assertEqual(funcs.approximation_derivee(sym.cos(x), sym.pi/6, 0.1), -0.5)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.cos(x), sym.pi / 2, 0.01), -1.00
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(sym.cos(x), sym.pi / 3, 0.00001), -0.86603
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(sym.cos(x), -sym.pi / 3, 0.00001), 0.86603
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(sym.cos(x), sym.pi / 3, 0.000001), -0.866025
+        )
+        self.assertEqual(funcs.approximation_derivee(sym.cos(x), sym.pi / 6, 0.1), -0.5)
 
         # Derive exp
         self.assertEqual(funcs.approximation_derivee(sym.exp(x), 0, 0.1), 1)
-        self.assertEqual(funcs.approximation_derivee(sym.exp(x), 1, 0.000000000000001), 2.718281828459045)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.exp(x), 1, 0.000000000000001),
+            2.718281828459045,
+        )
         self.assertEqual(funcs.approximation_derivee(sym.exp(x), -1, 0.0001), 0.3679)
         self.assertEqual(funcs.approximation_derivee(sym.exp(x), -1, 0.00001), 0.36788)
-"""
 
         # Derivee 1/x
-        self.assertEqual(funcs.approximation_derivee(math.log, 1, 0.1), 1.0)
-        self.assertEqual(funcs.approximation_derivee(math.log, math.e, 0.0000001), 0.3678794)
-        
+        self.assertEqual(funcs.approximation_derivee(sym.log(x), 1, 0.1), 1.0)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.log(x), math.e, 0.0000001), 0.3678794
+        )
+
         # Derivee 1/(2*math.sqrt)
-        self.assertEqual(funcs.approximation_derivee(math.sqrt, 2, 0.0000001), 0.3535534)
+        self.assertEqual(
+            funcs.approximation_derivee(sym.sqrt(x), 2, 0.0000001), 0.3535534
+        )
 
         # Derivee -1/x**2
-        self.assertEqual(funcs.approximation_derivee(1/x, 1, 0.1), -1.0)
-        self.assertEqual(funcs.approximation_derivee(1/x, -1, 0.1), 1.0)
-        self.assertEqual(funcs.approximation_derivee(1/x, 4, 0.1), -0.1)
-        self.assertEqual(funcs.approximation_derivee(1/x, 4, 0.001), -0.063)
-        self.assertEqual(funcs.approximation_derivee(1/x, 4, 0.0001), -0.0625)
-        self.assertEqual(funcs.approximation_derivee(1/x, -4, 0.0001), 0.0625)
+        self.assertEqual(funcs.approximation_derivee(1 / x, 1, 0.1), -1.0)
+        self.assertEqual(funcs.approximation_derivee(1 / x, -1, 0.1), -1.0)
+        self.assertEqual(funcs.approximation_derivee(1 / x, 4, 0.1), -0.1)
+        self.assertEqual(funcs.approximation_derivee(1 / x, 4, 0.001), -0.062)
+        self.assertEqual(funcs.approximation_derivee(1 / x, 4, 0.0001), -0.0625)
+        self.assertEqual(funcs.approximation_derivee(1 / x, -4, 0.0001), -0.0625)
 
         # Derivee u*x**(u-1)
-        self.assertEqual(funcs.approximation_derivee(x**2, math.sqrt(2), 0.1), 2.8)
-        self.assertEqual(funcs.approximation_derivee(x**2, math.sqrt(2)/2, 0.0001), 1.4142)
-        self.assertEqual(funcs.approximation_derivee(x**2, math.sqrt(45.54548)/13, 0.0000001), 1.0382676)
-        self.assertEqual(funcs.approximation_derivee(x**3, 4.16, 0.001), 51.917)
-        self.assertEqual(funcs.approximation_derivee(x**6, -3.48, 0.0001), -3062.2981)
+        self.assertEqual(funcs.approximation_derivee(x ** 2, math.sqrt(2), 0.1), 2.8)
+        self.assertEqual(
+            funcs.approximation_derivee(x ** 2, math.sqrt(2) / 2, 0.0001), 1.4142
+        )
+        self.assertEqual(
+            funcs.approximation_derivee(x ** 2, math.sqrt(45.54548) / 13, 0.0000001),
+            1.0382676,
+        )
+        self.assertEqual(funcs.approximation_derivee(x ** 2, 0.2345, 0.001), 0.469)
+        self.assertEqual(funcs.approximation_derivee(x ** 2, 0.2345, 0.01), 0.47)
+        self.assertEqual(funcs.approximation_derivee(x ** 3, 4.16, 0.001), 51.917)
+        self.assertEqual(funcs.approximation_derivee(x ** 6, -3.48, 0.0001), -3062.2981)
 
         with self.assertRaises(ValueError):
-            funcs.approximation_derivee(math.log, 0, 0.01)  # math domain error
-            funcs.approximation_derivee(math.log, 0, 42)  # invalid accuracy
-            funcs.approximation_derivee(math.sqrt, -5, 0.001)
+            funcs.approximation_derivee(sym.log(x), 1, 42)  # invalid accuracy
+            funcs.approximation_derivee(x ** 6, -3.48, 0.0005)  # invalid accuracy
 
         with self.assertRaises(TypeError):
-            funcs.approximation_derivee(math.log, math.exp, 0.1)
+            funcs.approximation_derivee(sym.log(x), math.e, 0.1)
             funcs.approximation_derivee("exp", 0, 0.1)  # str in arg
+            funcs.approximation_derivee([1, 5], 0, 0.1)  # list in arg
+            funcs.approximation_derivee(
+                {"exp": sym.exp(x), "sqrt": sym.sqrt(x)}, 0, 0.1
+            )  # dict in arg
 
         with self.assertRaises(ZeroDivisionError):
-            funcs.approximation_derivee(1/x, 0, 0.01)
-            funcs.approximation_derivee(math.sqrt, 0, 0.0001)
-"""
+            funcs.approximation_derivee(sym.log(x), 0, 0.01)  # math domain error
+            funcs.approximation_derivee(1 / x, 0, 0.01)
+            funcs.approximation_derivee(sym.sqrt(x), 0, 0.0001)
+            funcs.approximation_derivee(sym.sqrt(x), -5, 0.001)
+
 
 if __name__ == "__main__":
     unittest.main()
