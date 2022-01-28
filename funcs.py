@@ -1,3 +1,8 @@
+import math
+
+# import sympy
+
+
 def mirror(word, idx):
     """
     Return mirrored word until idx
@@ -47,3 +52,11 @@ def derivee_seconde(float_list, interval):
     tmp = derivee(float_list, interval)
     result = derivee(tmp, interval)
     return result
+
+
+def approximation_derivee(function, point_x, accuracy):
+    """
+    Derivate function in args, calculate f'(point_x) and returns an approximate result ordered by
+    accuracy value
+    """
+    return 0
