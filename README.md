@@ -1,18 +1,18 @@
 # TD2 Test Driver Development
 
-### Features
+## Features
 This repo is a test for a Test Driver Development.
 
-### Installation
+## Installation
 
-## Python 
+### Python 
 Install from : https://www.python.org/downloads/  
 This app was built with Python 3.6.3
 
-## Unittest
+### Unittest
 This repo uses Unittest.
 
-## Cloning repo
+### Cloning repo
 With HTTPS:
 ```sh
 git clone https://github.com/TPtestLogiciel/TP_TEST_LOGICIEL.git
@@ -24,13 +24,13 @@ git clone git@github.com:TPtestLogiciel/TP_TEST_LOGICIEL.git
 
 # How to execute ?
 
-### Running the tests
+## Running the tests
 
 ```sh
 python3 test_funcs.py
 ```
 This will display testing issues if any, OK else.
 
-### Use funcs 
+## Use funcs 
 Funcs can be imported in other programs if needed.
 
