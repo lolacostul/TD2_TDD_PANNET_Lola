@@ -59,14 +59,21 @@ def approximation_derivee(function, point_x, accuracy):
     Derivate function in args, calculate f'(point_x) and returns an approximate result ordered by
     accuracy value
     """
-    x = sym.Symbol('x')
-    round_value = 0
-    print("point_x = ", point_x)
-    derivee = function.diff(x)
-    print("derivee : ", derivee)
-    calculus = sym.lambdify(x, derivee, "sympy")
-    print("accuracy : ", accuracy)
     accuracy_cmp = str(accuracy)
+    if accuracy >= 1:
+        raise ValueError
+
+    if (
+        isinstance(function, str)
+        or isinstance(function, list)
+        or isinstance(function, dict)
+    ):
+        raise TypeError
+
+    x = sym.Symbol("x")
+    round_value = 0
+    derivee = function.diff(x)
+    calculus = sym.lambdify(x, derivee, "sympy")
     if accuracy_cmp == "0.1":
         round_value = 1
     elif accuracy_cmp == "0.01":
@@ -77,13 +84,12 @@ def approximation_derivee(function, point_x, accuracy):
         round_value = 4
     else:
         minus_idx = accuracy_cmp.find("-")
-        round_value = int(accuracy_cmp[minus_idx+1:])
-        # round_value = int(accuracy_cmp[-1])
-    print("round : ", round_value)
-    result = round(float(calculus(point_x)), round_value)
-    print(type(result))
-    print("result : ", result)
-    print("float result : ", float(result))
-    print("\n")
-
-    return result
+        try:
+            round_value = int(accuracy_cmp[minus_idx + 1 :])
+        except ValueError:
+            raise ValueError
+    try:
+        result = round(float(calculus(point_x)), round_value)
+        return result
+    except ZeroDivisionError:
+        raise ZeroDivisionError
