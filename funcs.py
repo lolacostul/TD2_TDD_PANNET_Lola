@@ -1,3 +1,8 @@
+import math
+
+import sympy as sym
+
+
 def mirror(word, idx):
     """
     Return mirrored word until idx
@@ -47,3 +52,44 @@ def derivee_seconde(float_list, interval):
     tmp = derivee(float_list, interval)
     result = derivee(tmp, interval)
     return result
+
+
+def approximation_derivee(function, point_x, accuracy):
+    """
+    Derivate function in args, calculate f'(point_x) and returns an approximate result ordered by
+    accuracy value
+    """
+    accuracy_cmp = str(accuracy)
+    if accuracy >= 1:
+        raise ValueError
+
+    if (
+        isinstance(function, str)
+        or isinstance(function, list)
+        or isinstance(function, dict)
+    ):
+        raise TypeError
+
+    x = sym.Symbol("x")
+    round_value = 0
+    derivee = function.diff(x)
+    calculus = sym.lambdify(x, derivee, "sympy")
+    if accuracy_cmp == "0.1":
+        round_value = 1
+    elif accuracy_cmp == "0.01":
+        round_value = 2
+    elif accuracy_cmp == "0.001":
+        round_value = 3
+    elif accuracy_cmp == "0.0001":
+        round_value = 4
+    else:
+        minus_idx = accuracy_cmp.find("-")
+        try:
+            round_value = int(accuracy_cmp[minus_idx + 1 :])
+        except ValueError:
+            raise ValueError
+    try:
+        result = round(float(calculus(point_x)), round_value)
+        return result
+    except ZeroDivisionError:
+        raise ZeroDivisionError

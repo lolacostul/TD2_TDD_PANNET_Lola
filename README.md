@@ -12,6 +12,13 @@ This app was built with Python 3.6.3
 ### Unittest
 This repo uses Unittest.
 
+### Sympy
+This repo uses Sympy to derivate function in approximative_derivee function.
+To install:
+```sh
+pip install sympy
+````
+
 ### Cloning repo
 With HTTPS:
 ```sh
